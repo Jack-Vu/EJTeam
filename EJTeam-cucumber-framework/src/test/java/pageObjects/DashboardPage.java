@@ -78,5 +78,34 @@ public class DashboardPage {
 		}
 		assertTrue(found, "Company with the name [" + expectedCompanyName + "] does not exist");
 	}
+	
+	public void validateSchoolName(String schoolName) {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+		wait.until(ExpectedConditions.textToBePresentInElement(pageTitle, TITLE));
+		String expectedSchoolName = schoolName + "-" + Common.getRandomNumberStored();
+		boolean found = false;
+		for (WebElement schoolNames : schoolCells) {
+			String actualSchoolName = schoolNames.getText();
+			if (actualSchoolName.equals(expectedSchoolName)) {
+				found = true;
+				break;
+			}
+		}
+		assertTrue(found, "Company with the name [" + expectedSchoolName + "] does not exist");
+	}
+	
+	public void deleteGivenSchool(String schoolName) {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+		wait.until(ExpectedConditions.textToBePresentInElement(pageTitle, TITLE));
+		String xpath = "//*[text()= '" + schoolName + "']/..//button";
+		driver.findElement(By.xpath(xpath)).click();
+	}
+	
+	public void deleteGivenCompany(String companyName) {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+		wait.until(ExpectedConditions.textToBePresentInElement(pageTitle, TITLE));
+		String xpath = "//*[text()= '" + companyName + "']/..//button";
+		driver.findElement(By.xpath(xpath)).click();
+	}
 
 }
